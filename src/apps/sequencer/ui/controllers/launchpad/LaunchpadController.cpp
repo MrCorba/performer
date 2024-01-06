@@ -67,6 +67,7 @@ static const LayerMapItem curveSequenceLayerMap[] = {
     [int(CurveSequence::Layer::ShapeVariationProbability)]  =  { 2, 0 },
     [int(CurveSequence::Layer::Min)]                        =  { 0, 1 },
     [int(CurveSequence::Layer::Max)]                        =  { 0, 2 },
+    [int(CurveSequence::Layer::MaxRand)]                    =  { 1, 2 },
     [int(CurveSequence::Layer::Gate)]                       =  { 0, 3 },
     [int(CurveSequence::Layer::GateProbability)]            =  { 1, 3 },
 };
@@ -92,6 +93,7 @@ static const RangeMap *curveSequenceLayerRangeMap[] = {
     [int(CurveSequence::Layer::ShapeVariationProbability)]  = nullptr,
     [int(CurveSequence::Layer::Min)]                        = &curveMinMaxRangeMap,
     [int(CurveSequence::Layer::Max)]                        = &curveMinMaxRangeMap,
+    [int(CurveSequence::Layer::MaxRand)]                    = nullptr,
     [int(CurveSequence::Layer::Gate)]                       = nullptr,
     [int(CurveSequence::Layer::GateProbability)]            = nullptr,
 };

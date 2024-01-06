@@ -213,6 +213,13 @@ void CurveSequenceEditPage::draw(Canvas &canvas) {
             }
             break;
         }
+        case Layer::MaxRand:
+            SequencePainter::drawProbability(
+                canvas,
+                x + 2, bottomY, stepWidth - 4, 2,
+                step.maxRand(), 8
+            );
+            break;
         case Layer::Gate:
             canvas.setColor(0xf);
             canvas.setBlendMode(BlendMode::Set);
@@ -360,6 +367,9 @@ void CurveSequenceEditPage::encoder(EncoderEvent &event) {
             case Layer::ShapeVariationProbability:
                 step.setShapeVariationProbability(step.shapeVariationProbability() + event.value());
                 break;
+            case Layer::MaxRand:
+                step.setMaxrand(step.maxRand() + event.value());
+                break;
             case Layer::Min:
             case Layer::Max: {
                 bool functionPressed = globalKeyState()[MatrixMap::fromFunction(activeFunctionKey())];
@@ -434,7 +444,17 @@ void CurveSequenceEditPage::switchLayer(int functionKey, bool shift) {
         setLayer(Layer::Min);
         break;
     case Function::Max:
-        setLayer(Layer::Max);
+        switch (layer()) {
+        case Layer::Max:
+            setLayer(Layer::MaxRand);
+            break;
+        case Layer::MaxRand:
+            setLayer(Layer::Max);
+            break;
+        default:
+            setLayer(Layer::Max);
+            break;
+        }
         break;
     case Function::Gate:
         switch (layer()) {
@@ -461,6 +481,7 @@ int CurveSequenceEditPage::activeFunctionKey() {
     case Layer::Min:
         return 1;
     case Layer::Max:
+    case Layer::MaxRand:
         return 2;
     case Layer::Gate:
     case Layer::GateProbability:
@@ -519,6 +540,7 @@ void CurveSequenceEditPage::drawDetail(Canvas &canvas, const CurveSequence::Step
         break;
     case Layer::Min:
     case Layer::Max:
+    case Layer::MaxRand:
     case Layer::Gate:
     case Layer::GateProbability:
         SequencePainter::drawProbability(

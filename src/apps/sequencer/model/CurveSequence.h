@@ -26,6 +26,7 @@ public:
     typedef UnsignedValue<4> ShapeVariationProbability;
     typedef UnsignedValue<8> Min;
     typedef UnsignedValue<8> Max;
+    typedef UnsignedValue<4> MaxRand;
     typedef UnsignedValue<4> Gate;
     typedef UnsignedValue<3> GateProbability;
 
@@ -35,6 +36,7 @@ public:
         ShapeVariationProbability,
         Min,
         Max,
+        MaxRand,
         Gate,
         GateProbability,
         Last
@@ -47,6 +49,7 @@ public:
         case Layer::ShapeVariationProbability:  return "SHAPE PROB";
         case Layer::Min:                        return "MIN";
         case Layer::Max:                        return "MAX";
+        case Layer::MaxRand:                    return "MAX RAND";
         case Layer::Gate:                       return "GATE";
         case Layer::GateProbability:            return "GATE PROB";
         case Layer::Last:                       break;
@@ -110,6 +113,11 @@ public:
             setMax(int(std::round(max * Max::Max)));
         }
 
+        int maxRand() const { return _data1.maxRand; }
+        void setMaxrand(int maxRand) {
+            _data1.maxRand = MaxRand::clamp(maxRand);
+        }
+
         // gate
 
         int gate() const { return _data1.gate; }
@@ -159,7 +167,8 @@ public:
             uint16_t raw;
             BitField<uint16_t, 0, Gate::Bits> gate;
             BitField<uint16_t, 4, GateProbability::Bits> gateProbability;
-            // 9 bits left
+            BitField<uint32_t, 7, MaxRand::Bits> maxRand;
+            // 5 bits left
         } _data1;
     };
 
