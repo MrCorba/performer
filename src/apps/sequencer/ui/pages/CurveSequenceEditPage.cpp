@@ -214,11 +214,7 @@ void CurveSequenceEditPage::draw(Canvas &canvas) {
             break;
         }
         case Layer::MaxRand:
-            SequencePainter::drawProbability(
-                canvas,
-                x + 2, bottomY, stepWidth - 4, 2,
-                step.maxRand(), 8
-            );
+            drawMinMax(canvas, x, curveY, stepWidth, curveHeight, step.maxRand());
             break;
         case Layer::Gate:
             canvas.setColor(0xf);
