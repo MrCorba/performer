@@ -20,8 +20,17 @@ static float evalStepShape(const CurveSequence::Step &step, bool variation, bool
     if (invert) {
         value = 1.f - value;
     }
+
+    int maxVal = step.max();
+    int maxRand = step.maxRand();
+    if (maxRand > 0) {
+        int randVal = rng.nextRange(maxRand);
+        randVal -= maxRand / 2;
+        maxVal += randVal;
+    }
+
     float min = float(step.min()) / CurveSequence::Min::Max;
-    float max = float(step.max()) / CurveSequence::Max::Max;
+    float max = float(maxVal) / CurveSequence::Max::Max;
     return min + value * (max - min);
 }
 
