@@ -309,7 +309,7 @@ void CurveSequenceEditPage::keyPress(KeyPressEvent &event) {
         return;
     }
 
-    if (key.pageModifier()) {
+    if (key.pageModifier() && !key.shiftModifier()) {
         return;
     }
 
@@ -336,6 +336,20 @@ void CurveSequenceEditPage::keyPress(KeyPressEvent &event) {
             _section = std::min(3, _section + 1);
         }
         event.consume();
+    }
+
+    if (key.pageModifier() && key.shiftModifier()) {
+        if (key.isStep()) {
+            int stepIndex = stepOffset() + key.step();
+            switch (layer()) {
+            case Layer::Gate:
+                sequence.step(stepIndex).toggleGate();
+                event.consume();
+                break;
+            default:
+                break;
+            }
+        }
     }
 }
 

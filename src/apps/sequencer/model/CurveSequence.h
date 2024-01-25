@@ -126,6 +126,10 @@ public:
         void setGate(int gate) {
             _data1.gate = Gate::clamp(gate);
         }
+        void toggleGate() {
+            int _gate = gate();
+            setGate(_gate > 0 ? 0 : 1);
+        }
 
         // gateProbability
 
