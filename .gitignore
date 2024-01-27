@@ -5,3 +5,5 @@ build/
 host/
 downloads/
 tools/
+
+*.code-workspace

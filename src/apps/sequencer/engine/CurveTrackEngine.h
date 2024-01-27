@@ -69,6 +69,7 @@ private:
     int _currentStep;
     float _currentStepFraction;
     bool _shapeVariation;
+    int _maxRand;
     CurveTrack::FillMode _fillMode;
 
     bool _activity;

@@ -14,6 +14,7 @@ Types::LayerRange CurveSequence::layerRange(Layer layer) {
     CASE(ShapeVariationProbability)
     CASE(Min)
     CASE(Max)
+    CASE(MaxRand)
     CASE(Gate)
     CASE(GateProbability)
     case Layer::Last:
@@ -40,6 +41,8 @@ int CurveSequence::layerDefaultValue(Layer layer)
         return step.min();
     case Layer::Max:
         return step.max();
+    case Layer::MaxRand:
+        return step.maxRand();
     case Layer::Gate:
         return step.gate();
     case Layer::GateProbability:
@@ -63,6 +66,8 @@ int CurveSequence::Step::layerValue(Layer layer) const {
         return min();
     case Layer::Max:
         return max();
+    case Layer::MaxRand:
+        return maxRand();
     case Layer::Gate:
         return gate();
     case Layer::GateProbability:
@@ -91,6 +96,9 @@ void CurveSequence::Step::setLayerValue(Layer layer, int value) {
     case Layer::Max:
         setMax(value);
         break;
+    case Layer::MaxRand:
+        setMaxrand(value);
+        break;
     case Layer::Gate:
         setGate(value);
         break;
@@ -110,6 +118,7 @@ void CurveSequence::Step::clear() {
     setShapeVariationProbability(0);
     setMin(0);
     setMax(Max::Max);
+    setMaxrand(0);
     setGate(0);
     setGateProbability(GateProbability::Max);
 }

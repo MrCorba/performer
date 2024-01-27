@@ -83,7 +83,7 @@ public:
     bool isRight() const { return _code == Right; }
     bool isPage() const { return _code == Page; };
     bool isShift() const { return _code == Shift; }
-
+    
     // button groups
 
     bool isTrack() const { return MatrixMap::isTrack(_code); }
