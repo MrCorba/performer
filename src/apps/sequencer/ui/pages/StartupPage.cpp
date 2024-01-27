@@ -37,6 +37,9 @@ void StartupPage::draw(Canvas &canvas) {
     canvas.drawTextCentered(0, 0, Width, 32, "PERFORMER");
 
     canvas.setFont(Font::Tiny);
+    canvas.drawTextCentered(0, 20, Width, 8, "[Corba Edition]");
+
+    canvas.setFont(Font::Tiny);
     canvas.drawTextCentered(0, 32, Width, 32, "LOADING ...");
 
     int w = std::floor(relTime() * Width);
