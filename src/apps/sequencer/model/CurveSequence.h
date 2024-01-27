@@ -174,7 +174,6 @@ public:
             BitField<uint16_t, 0, Gate::Bits> gate;
             BitField<uint16_t, 4, GateProbability::Bits> gateProbability;
             BitField<uint32_t, 7, MaxRand::Bits> maxRand;
-            // 5 bits left
         } _data1;
     };
 
