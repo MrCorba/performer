@@ -214,7 +214,7 @@ void CurveSequenceEditPage::draw(Canvas &canvas) {
             break;
         }
         case Layer::MaxRand:
-            drawMinMax(canvas, x, curveY, stepWidth, curveHeight, step.maxRand());
+            drawMinMax(canvas, x, curveY, stepWidth, curveHeight, step.maxRandNormalized());
             break;
         case Layer::Gate:
             canvas.setColor(0xf);

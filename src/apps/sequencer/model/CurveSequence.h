@@ -26,7 +26,7 @@ public:
     typedef UnsignedValue<4> ShapeVariationProbability;
     typedef UnsignedValue<8> Min;
     typedef UnsignedValue<8> Max;
-    typedef UnsignedValue<8> MaxRand;
+    typedef UnsignedValue<4> MaxRand;
     typedef UnsignedValue<4> Gate;
     typedef UnsignedValue<3> GateProbability;
 
@@ -115,10 +115,10 @@ public:
 
         int maxRand() const { return _data1.maxRand; }
         void setMaxrand(int maxRand) {
-            _data1.maxRand = maxRand;
+            _data1.maxRand = MaxRand::clamp(maxRand);
         }
 
-        float maxRandNormalized() const { return float(maxRand()) / 100; }
+        float maxRandNormalized() const { return float(maxRand()) / MaxRand::Max; }
 
         // gate
 

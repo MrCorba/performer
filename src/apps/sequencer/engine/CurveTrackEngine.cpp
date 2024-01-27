@@ -22,8 +22,8 @@ static float evalStepShape(const CurveSequence::Step &step, bool variation, bool
     }
 
     float min = float(step.min()) / CurveSequence::Min::Max;
-    float max = float(step.max() + maxRnd) / CurveSequence::Max::Max;
-    return min + value * (max - min);
+    float max = float(step.max()) / CurveSequence::Max::Max;
+    return min + (value * (max - min)) + maxRnd;
 }
 
 static bool evalShapeVariation(const CurveSequence::Step &step, int probabilityBias) {
@@ -170,6 +170,7 @@ void CurveTrackEngine::triggerStep(uint32_t tick, uint32_t divisor) {
 
     _shapeVariation = evalShapeVariation(step, shapeProbabilityBias);
 
+    _maxRand = 0;
     int stepRnd = step.maxRand();
     if (stepRnd > 0) {
         int randVal = rng.nextRange(stepRnd);
