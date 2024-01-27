@@ -14,7 +14,7 @@
 
 static Random rng;
 
-static float evalStepShape(const CurveSequence::Step &step, bool variation, bool invert, float fraction, int maxRnd) {
+static float evalStepShape(const CurveSequence::Step &step, bool variation, bool invert, float fraction, float maxRnd) {
     auto function = Curve::function(Curve::Type(variation ? step.shapeVariation() : step.shape()));
     float value = function(fraction);
     if (invert) {
@@ -23,8 +23,7 @@ static float evalStepShape(const CurveSequence::Step &step, bool variation, bool
 
     float min = float(step.min()) / CurveSequence::Min::Max;
     float max = float(step.max()) / CurveSequence::Max::Max;
-    float maxRand = float(maxRnd) / CurveSequence::MaxRand::Max;
-    return min + value * (max + maxRand - min);
+    return min + value * (max + maxRnd - min);
 }
 
 static bool evalShapeVariation(const CurveSequence::Step &step, int probabilityBias) {
@@ -45,7 +44,7 @@ void CurveTrackEngine::reset() {
     _fillMode = CurveTrack::FillMode::None;
     _activity = false;
     _gateOutput = false;
-    _maxRand = 0;
+    _maxRand = 0.f;
 
     _recorder.reset();
     _gateQueue.clear();
@@ -171,12 +170,12 @@ void CurveTrackEngine::triggerStep(uint32_t tick, uint32_t divisor) {
 
     _shapeVariation = evalShapeVariation(step, shapeProbabilityBias);
 
-    _maxRand = 0;
+    _maxRand = 0.f;
     int stepRnd = step.maxRand();
     if (stepRnd > 0) {
         int randVal = rng.nextRange(stepRnd);
         randVal -= (stepRnd / 2);
-        _maxRand = randVal;
+        _maxRand = float(randVal) / CurveSequence::MaxRand::Max;
     }
 
     bool fillStep = fill() && (rng.nextRange(100) < uint32_t(fillAmount()));
