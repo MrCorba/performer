@@ -23,7 +23,8 @@ static float evalStepShape(const CurveSequence::Step &step, bool variation, bool
 
     float min = float(step.min()) / CurveSequence::Min::Max;
     float max = float(step.max()) / CurveSequence::Max::Max;
-    return min + (value * (max - min)) + maxRnd;
+    float maxRand = float(maxRnd) / CurveSequence::MaxRand::Max;
+    return min + value * (max + maxRand - min);
 }
 
 static bool evalShapeVariation(const CurveSequence::Step &step, int probabilityBias) {

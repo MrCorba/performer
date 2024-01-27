@@ -26,7 +26,7 @@ public:
     typedef UnsignedValue<4> ShapeVariationProbability;
     typedef UnsignedValue<8> Min;
     typedef UnsignedValue<8> Max;
-    typedef UnsignedValue<4> MaxRand;
+    typedef UnsignedValue<5> MaxRand;
     typedef UnsignedValue<4> Gate;
     typedef UnsignedValue<3> GateProbability;
 
