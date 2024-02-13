@@ -47,6 +47,6 @@ void EuclideanGenerator::update()  {
     _builder.setLength(_params.steps);
 
     for (size_t i = 0; i < CONFIG_STEP_COUNT; ++i) {
-        _builder.setValue(i, _pattern[i % _pattern.size()] ? 1.f : 0.f);
+        _builder.setValue(i, _pattern[i % _pattern.size()] ? .25f : 0.f);
     }
 }
